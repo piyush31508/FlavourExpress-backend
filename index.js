@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import connect from './database/db.js';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoutes.js';
+import paymentRouter from './routes/paymentRoutes.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
@@ -16,6 +17,7 @@ dotenv.config();
 
 //routes
 app.use('/user', userRouter);
+app.use('/payment', paymentRouter); 
 app.use('/product', productRouter);
 
 

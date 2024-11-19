@@ -17,13 +17,20 @@ export const createProduct = async (req,res) => {
 
 export const getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        const maxProductPerPage = 12;
+        const page = parseInt(req.query.page) || 1;
+        const totalProducts = await Product.countDocuments();
+        const products = await Product.find()
+            .skip(maxProductPerPage * (page - 1))
+            .limit(maxProductPerPage);
+
+        res.json({ products, totalProducts });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: error.message });
     }
-}
+};
+
 
 export const getProductById = async (req, res) => {
     try {
